@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ libro.titulo }} — LibreriaJP{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/libros/">Libros</a></li>
+        <li class="breadcrumb-item active">{{ libro.titulo }}</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <!-- Portada -->
+    <div class="col-md-3">
+        {% if libro.portada %}
+        <img src="{{ libro.portada.url }}" class="img-fluid rounded shadow" alt="{{ libro.titulo }}">
+        {% else %}
+        <div class="portada-placeholder rounded shadow" style="height: 300px;">
+            <i class="bi bi-book text-muted" style="font-size: 5rem;"></i>
+        </div>
+        {% endif %}
+
+        <!-- Recomendación -->
+        <div class="card mt-3 text-center">
+            <div class="card-body">
+                <h5 class="text-success">
+                    <i class="bi bi-star-fill"></i> {{ libro.recomendacion }}/10
+                </h5>
+                <small class="text-muted">Recomendación</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detalle -->
+    <div class="col-md-9">
+        <h2>{{ libro.titulo }}</h2>
+
+        <table class="table table-bordered mt-3">
+            <tbody>
+                <tr>
+                    <th width="30%"><i class="bi bi-person"></i> Autor</th>
+                    <td>{{ libro.autor.nombre }}</td>
+                </tr>
+                <tr>
+                    <th><i class="bi bi-tag"></i> Género</th>
+                    <td>
+                        <span class="badge bg-primary">{{ libro.genero.nombre }}</span>
+                    </td>
+                </tr>
+                {% if libro.categoria %}
+                <tr>
+                    <th><i class="bi bi-folder"></i> Categoría</th>
+                    <td>{{ libro.categoria.nombre }}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <th><i class="bi bi-calendar"></i> Año</th>
+                    <td>{{ libro.anio_publicacion }}</td>
+                </tr>
+                <tr>
+                    <th><i class="bi bi-file-text"></i> Páginas</th>
+                    <td>{{ libro.paginas }}</td>
+                </tr>
+                <tr>
+                    <th><i class="bi bi-clock"></i> Actualizado</th>
+                    <td>{{ libro.updated_at|date:"d/m/Y H:i" }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        {% if libro.descripcion %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <i class="bi bi-text-paragraph"></i> Descripción
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ libro.descripcion }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Archivos descargables -->
+        {% if libro.archivos.all %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <i class="bi bi-download"></i> Archivos disponibles
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {% for archivo in libro.archivos.all %}
+                    <a href="{{ archivo.archivo.url }}" 
+                       class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                       target="_blank">
+                        <span>
+                            {% if archivo.tipo == 'pdf' %}
+                            <i class="bi bi-file-earmark-pdf text-danger"></i>
+                            {% elif archivo.tipo == 'epub' %}
+                            <i class="bi bi-file-earmark-text text-primary"></i>
+                            {% else %}
+                            <i class="bi bi-file-earmark text-secondary"></i>
+                            {% endif %}
+                            {{ archivo.tipo|upper }}
+                            {% if archivo.descripcion %}
+                            — {{ archivo.descripcion }}
+                            {% endif %}
+                        </span>
+                        <span class="badge bg-success">
+                            <i class="bi bi-download"></i> Descargar
+                        </span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="mt-4">
+            <a href="/libros/" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a libros
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

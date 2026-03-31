@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Normas y Organismos — LibreriaJP{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-building"></i> Normas y Organismos</h2>
+    <span class="badge bg-secondary fs-6">{{ organismos|length }} organismos</span>
+</div>
+
+{% if organismos %}
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for organismo in organismos %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-header bg-dark text-white d-flex justify-content-between">
+                <span>
+                    <i class="bi bi-building"></i>
+                    <strong>{{ organismo.norma }}</strong>
+                </span>
+                <span class="badge bg-success">
+                    <i class="bi bi-star-fill"></i> {{ organismo.recomendacion }}/10
+                </span>
+            </div>
+            <div class="card-body">
+                {% if organismo.denominacion %}
+                <h6 class="card-title text-muted">{{ organismo.denominacion }}</h6>
+                {% endif %}
+                {% if organismo.codigo %}
+                <p>
+                    <strong>Código:</strong>
+                    <span class="badge bg-secondary">{{ organismo.codigo }}</span>
+                </p>
+                {% endif %}
+                {% if organismo.anio %}
+                <p>
+                    <strong><i class="bi bi-calendar"></i> Año:</strong>
+                    {{ organismo.anio }}
+                </p>
+                {% endif %}
+                {% if organismo.texto %}
+                <p class="card-text small">
+                    {{ organismo.texto|truncatewords:20 }}
+                </p>
+                {% endif %}
+                {% if organismo.descripcion %}
+                <p class="card-text small text-muted">
+                    {{ organismo.descripcion|truncatewords:15 }}
+                </p>
+                {% endif %}
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+                <small class="text-muted">
+                    <i class="bi bi-file-earmark-text"></i>
+                    {{ organismo.documentos.count }} documentos
+                </small>
+                <a href="/organismos/{{ organismo.id }}/"
+                   class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-eye"></i> Ver detalle
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info text-center">
+    <i class="bi bi-info-circle"></i> No se encontraron organismos.
+</div>
+{% endif %}
+{% endblock %}

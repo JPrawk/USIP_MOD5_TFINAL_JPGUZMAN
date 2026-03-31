@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Libros — LibreriaJP{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-book-half"></i> Libros</h2>
+    <span class="badge bg-secondary fs-6">{{ libros|length }} libros</span>
+</div>
+
+<!-- Filtros -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <input type="text" name="q" class="form-control"
+                       placeholder="Buscar por título o autor..."
+                       value="{{ request.GET.q }}">
+            </div>
+            <div class="col-md-3">
+                <select name="genero" class="form-select">
+                    <option value="">Todos los géneros</option>
+                    {% for genero in generos %}
+                    <option value="{{ genero.id }}"
+                        {% if request.GET.genero == genero.id|stringformat:"s" %}selected{% endif %}>
+                        {{ genero.nombre }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </div>
+            <div class="col-md-2">
+                <a href="/libros/" class="btn btn-outline-secondary w-100">
+                    <i class="bi bi-x"></i> Limpiar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Lista de libros -->
+{% if libros %}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for libro in libros %}
+    <div class="col">
+        <div class="card h-100">
+            {% if libro.portada %}
+            <img src="{{ libro.portada.url }}" class="portada-img card-img-top" alt="{{ libro.titulo }}">
+            {% else %}
+            <div class="portada-placeholder card-img-top">
+                <i class="bi bi-book text-muted" style="font-size: 4rem;"></i>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ libro.titulo }}</h5>
+                <p class="card-text text-muted">
+                    <i class="bi bi-person"></i> {{ libro.autor.nombre }}
+                </p>
+                <p class="card-text">
+                    <span class="badge bg-primary">{{ libro.genero.nombre }}</span>
+                    <span class="badge bg-secondary">{{ libro.anio_publicacion }}</span>
+                    <span class="badge badge-recomendacion text-white">
+                        <i class="bi bi-star-fill"></i> {{ libro.recomendacion }}/10
+                    </span>
+                </p>
+                {% if libro.descripcion %}
+                <p class="card-text small text-muted">
+                    {{ libro.descripcion|truncatewords:15 }}
+                </p>
+                {% endif %}
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <small class="text-muted">
+                    <i class="bi bi-file-text"></i> {{ libro.paginas }} págs.
+                </small>
+                <a href="/libros/{{ libro.id }}/" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-eye"></i> Ver detalle
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info text-center">
+    <i class="bi bi-info-circle"></i> No se encontraron libros.
+</div>
+{% endif %}
+{% endblock %}

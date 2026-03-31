@@ -1,0 +1,135 @@
+[
+{
+  "model": "libros.genero",
+  "pk": 1,
+  "fields": {
+    "nombre": "Politica",
+    "tipo": "novela",
+    "padre": null,
+    "descripcion": "",
+    "recomendacion": 5,
+    "paginas": 0
+  }
+},
+{
+  "model": "libros.genero",
+  "pk": 2,
+  "fields": {
+    "nombre": "Novela clasica",
+    "tipo": "novela",
+    "padre": null,
+    "descripcion": "Grandes obras de la literatura universal",
+    "recomendacion": 5,
+    "paginas": 0
+  }
+},
+{
+  "model": "libros.genero",
+  "pk": 3,
+  "fields": {
+    "nombre": "fisica universitaria",
+    "tipo": "fisica",
+    "padre": null,
+    "descripcion": "Textos de fisica para ingenieria",
+    "recomendacion": 5,
+    "paginas": 0
+  }
+},
+{
+  "model": "libros.genero",
+  "pk": 4,
+  "fields": {
+    "nombre": "Historia mundial",
+    "tipo": "historia",
+    "padre": null,
+    "descripcion": "Eventos historicos relevantes",
+    "recomendacion": 5,
+    "paginas": 0
+  }
+},
+{
+  "model": "libros.autor",
+  "pk": 1,
+  "fields": {
+    "nombre": "Michael Alpert",
+    "nacionalidad": "",
+    "biografia": "",
+    "recomendacion": 5
+  }
+},
+{
+  "model": "libros.autor",
+  "pk": 2,
+  "fields": {
+    "nombre": "Isaac Asimov",
+    "nacionalidad": "Estadounidense",
+    "biografia": "Escritor de ciencia ficcion",
+    "recomendacion": 5
+  }
+},
+{
+  "model": "libros.autor",
+  "pk": 3,
+  "fields": {
+    "nombre": "Richard Feynman",
+    "nacionalidad": "Estadounidense",
+    "biografia": "Fisica teorica y nobel",
+    "recomendacion": 5
+  }
+},
+{
+  "model": "libros.autor",
+  "pk": 4,
+  "fields": {
+    "nombre": "Yuval Noah Harari",
+    "nacionalidad": "Israeli",
+    "biografia": "Historiador y autor de Homo Sapiens",
+    "recomendacion": 5
+  }
+},
+{
+  "model": "libros.libro",
+  "pk": 1,
+  "fields": {
+    "titulo": "El ejercito popular de la republica",
+    "autor": 1,
+    "genero": 1,
+    "categoria": null,
+    "anio_publicacion": 1936,
+    "descripcion": "",
+    "portada": "",
+    "recomendacion": 5,
+    "paginas": 0,
+    "created_at": "2026-03-31T02:18:03.522Z",
+    "updated_at": "2026-03-31T02:18:03.532Z"
+  }
+},
+{
+  "model": "libros.archivolibro",
+  "pk": 1,
+  "fields": {
+    "libro": 1,
+    "tipo": "epub",
+    "archivo": "archivos/El_Ejercito_Popular_de_la_Republica_1936-_-_Michael_Alpert.epub",
+    "descripcion": "",
+    "recomendacion": 5,
+    "paginas": 0,
+    "created_at": "2026-03-31T02:18:03.513Z",
+    "updated_at": "2026-03-31T02:18:03.518Z"
+  }
+},
+{
+  "model": "doc_tecnicos.organismonorma",
+  "pk": 1,
+  "fields": {
+    "norma": "IEC",
+    "denominacion": "",
+    "codigo": "",
+    "anio": null,
+    "texto": "",
+    "descripcion": "Normas Europeas",
+    "recomendacion": 5,
+    "paginas": 0
+  }
+}
+]

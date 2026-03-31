@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ documento.titulo }} — LibreriaJP{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/documentos/">Documentos Técnicos</a></li>
+        <li class="breadcrumb-item active">{{ documento.codigo }}</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <!-- Info principal -->
+    <div class="col-md-8">
+        <h2>{{ documento.titulo }}</h2>
+
+        <table class="table table-bordered mt-3">
+            <tbody>
+                <tr>
+                    <th width="30%"><i class="bi bi-hash"></i> Código</th>
+                    <td>
+                        <span class="badge bg-dark fs-6">{{ documento.codigo }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th><i class="bi bi-building"></i> Organismo</th>
+                    <td>
+                        <span class="badge bg-primary">{{ documento.organismo.norma }}</span>
+                        {% if documento.organismo.denominacion %}
+                        — {{ documento.organismo.denominacion }}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% if documento.categoria %}
+                <tr>
+                    <th><i class="bi bi-folder"></i> Categoría</th>
+                    <td>{{ documento.categoria.nombre }}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <th><i class="bi bi-calendar"></i> Año</th>
+                    <td>{{ documento.anio }}</td>
+                </tr>
+                <tr>
+                    <th><i class="bi bi-file-text"></i> Páginas</th>
+                    <td>{{ documento.paginas }}</td>
+                </tr>
+                <tr>
+                    <th><i class="bi bi-star-fill"></i> Recomendación</th>
+                    <td>
+                        <span class="badge bg-success fs-6">
+                            {{ documento.recomendacion }}/10
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th><i class="bi bi-clock"></i> Actualizado</th>
+                    <td>{{ documento.updated_at|date:"d/m/Y H:i" }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        {% if documento.descripcion %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <i class="bi bi-text-paragraph"></i> Descripción
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ documento.descripcion }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Archivo descargable -->
+        {% if documento.archivo %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <i class="bi bi-download"></i> Archivo disponible
+            </div>
+            <div class="card-body">
+                <a href="{{ documento.archivo.url }}"
+                   class="btn btn-danger"
+                   target="_blank">
+                    <i class="bi bi-file-earmark-pdf"></i> Descargar PDF
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="mt-4">
+            <a href="/documentos/" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a documentos
+            </a>
+        </div>
+    </div>
+
+    <!-- Info del organismo -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <i class="bi bi-buildin

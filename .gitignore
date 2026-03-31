@@ -1,6 +1,51 @@
-venv/
-db.sqlite3
+cat > .gitignore << 'EOF'
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Django
+db.sqlite3
+*.log
 media/
+staticfiles/
+local_settings.py
+
+# Credenciales
+usuario.txt
 .env
+*.env
+
+# VS Code
+.vscode/
+.idea/
+
+# Windows
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# Mac
+.DS_Store
+
+# Coverage
+.coverage
+htmlcov/
+
+# Migrations (opcional - algunos prefieren no subir)
+# */migrations/*.py
+# !*/migrations/__init__.py
+EOF

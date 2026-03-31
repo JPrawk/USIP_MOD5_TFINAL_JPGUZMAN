@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Documentos Técnicos — LibreriaJP{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-file-earmark-text"></i> Documentos Técnicos</h2>
+    <span class="badge bg-secondary fs-6">{{ documentos|length }} documentos</span>
+</div>
+
+<!-- Filtros -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <input type="text" name="q" class="form-control"
+                       placeholder="Buscar por título o código..."
+                       value="{{ request.GET.q }}">
+            </div>
+            <div class="col-md-3">
+                <select name="organismo" class="form-select">
+                    <option value="">Todos los organismos</option>
+                    {% for organismo in organismos %}
+                    <option value="{{ organismo.id }}"
+                        {% if request.GET.organismo == organismo.id|stringformat:"s" %}selected{% endif %}>
+                        {{ organismo.norma }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </div>
+            <div class="col-md-2">
+                <a href="/documentos/" class="btn btn-outline-secondary w-100">
+                    <i class="bi bi-x"></i> Limpiar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Tabla de documentos -->
+{% if documentos %}
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th><i class="bi bi-hash"></i> Código</th>
+                        <th><i class="bi bi-file-text"></i> Título</th>
+                        <th><i class="bi bi-building"></i> Organismo</th>
+                        <th><i class="bi bi-folder"></i> Categoría</th>
+                        <th><i class="bi bi-calendar"></i> Año</th>
+                        <th><i class="bi bi-star"></i> Rec.</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for doc in documentos %}
+                    <tr>
+                        <td>
+                            <span class="badge bg-dark">{{ doc.codigo }}</span>
+                        </td>
+                        <td>{{ doc.titulo|truncatewords:8 }}</td>
+                        <td>
+                            <span class="badge bg-primary">{{ doc.organismo.norma }}</span>
+                        </td>
+                        <td>
+                            {% if doc.categoria %}
+                            {{ doc.categoria.nombre }}
+                            {% else %}
+                            <span class="text-muted">—</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ doc.anio }}</td>
+                        <td>
+                            <span class="badge bg-success">
+                                <i class="bi bi-star-fill"></i> {{ doc.recomendacion }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="/documentos/{{ doc.id }}/"
+                               class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-eye"></i> Ver
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info text-center">
+    <i class="bi bi-info-circle"></i> No se encontraron documentos técnicos.
+</div>
+{% endif %}
+{% endblock %}
