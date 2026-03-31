@@ -1,20 +1,76 @@
 [
 {
   "model": "auth.user",
-  "pk": 1,
+  "pk": 2,
   "fields": {
-    "password": "pbkdf2_sha256$1200000$8ybyuhb7iqslqMUSZ7lKNG$3ZdrH5SqS7DP+NEiCMqd4zs1spDvQ8aQwrUpn7CwCDw=",
-    "last_login": "2026-03-29T12:19:06.759Z",
+    "password": "pbkdf2_sha256$1200000$aaN9AqBPQo73yx2N6p7jHa$RKYqLgtHMK7FoGmc0mPhWbEFvcJ+WVmHJDr1BP04Fs4=",
+    "last_login": "2026-03-31T03:52:39.361Z",
     "is_superuser": true,
-    "username": "juan",
+    "username": "admin",
     "first_name": "",
     "last_name": "",
-    "email": "",
+    "email": "admin@demo.com",
     "is_staff": true,
     "is_active": true,
-    "date_joined": "2026-03-29T12:14:46.472Z",
+    "date_joined": "2026-03-31T03:37:21.552Z",
     "groups": [],
     "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$RxVlLW9uGRKX5BUa48PJPE$GxOfb/2vKh6NkgeDo0Nhg5QRODDbHng5OQYeyez8hPU=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "jose",
+    "first_name": "Jose",
+    "last_name": "Gonzales",
+    "email": "jgonzales@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-31T03:37:22.011Z",
+    "groups": [
+      1
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$m3VZiC5ZWPLE5cAy6wR7TY$HWqPk5zgoKuz2n5AFpAUG2gUCFsfBP5QGA44Wpx8kfE=",
+    "last_login": "2026-03-31T03:38:35.394Z",
+    "is_superuser": false,
+    "username": "juan",
+    "first_name": "Juan",
+    "last_name": "Guzman",
+    "email": "juan@libreriajp.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-03-31T03:37:22.470Z",
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "Almacen",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 2,
+  "fields": {
+    "name": "Bibliotecario",
+    "permissions": []
   }
 }
 ]
