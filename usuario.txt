@@ -1,2 +1,0 @@
-usuario: juan
-password: juan12345678
